@@ -1,16 +1,17 @@
-// Define region of interest
-var region = 
-    ee.Geometry.Polygon(
-        [[[77.9941635131836, 27.935807005891355],
-          [77.9941635131836, 27.826254354286664],
-          [78.17166137695312, 27.826254354286664],
-          [78.17166137695312, 27.935807005891355]]], null, false);
+//Loading True Color Composite Image 
+
+//Define region of interest
+var region = ee.Geometry.Polygon(
+        [[[72.90982646224586, 19.09933022532271],
+          [72.90982646224586, 19.032972275564244],
+          [72.97591609237281, 19.032972275564244],
+          [72.97591609237281, 19.09933022532271]]], null, false);
 
 // Add dataset
 var data=ee.ImageCollection("COPERNICUS/S2");
 
 //Filter Dataset
-var filter=data.filterDate('2020-01-01','2020-12-31');
+var filter=data.filterDate('2020-04-01','2020-04-15');
 
 // Clip the Dataset to your region
 var clip=filter.mean().clip(region);
@@ -27,7 +28,7 @@ var viz={
 
 
 //Center map to your region
-Map.centerObject(region);
+Map.centerObject(region,14);
 
 // Add clipped and filtered image layer to map
 Map.addLayer(clip,viz,"True Color Image");
