@@ -2,7 +2,7 @@
 var region = ee.FeatureCollection("users/ucanwhatsappme/India_Shapefile");
 //adding and  filtering the data for date
 var dataset = ee.ImageCollection('MODIS/006/MOD11A1')
-                  .filter(ee.Filter.date('2018-01-01', '2018-12-31'));
+                  .filter(ee.Filter.date('2018-01-01', '2018-05-30'));
 
 // band selection
 var ndvi = dataset.select('LST_Day_1km');
@@ -28,7 +28,7 @@ Map.centerObject(region,7);
 Map.addLayer(clip, vis, 'NDVI');
 
 
-
+//////////////////////////////////////////// Adding legends to the map
 //apply legends
 function makeColorBarParams(palette) {
   return {
@@ -96,7 +96,7 @@ var modC = modLSTday.map(function(image) {
 // Chart the time-series
 var temp_trend = ui.Chart.image.series({
   imageCollection: modC,
-  region: roi,
+  region: region,
   reducer: ee.Reducer.median(),
   scale: 1000,
   xProperty: 'system:time_start'})
